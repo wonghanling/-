@@ -301,3 +301,140 @@ window.closeModal = closeModal;
 window.showLoginModal = showLoginModal;
 window.closeLoginModal = closeLoginModal;
 window.login = login;
+window.selectService = selectService;
+window.closePaymentModal = closePaymentModal;
+window.proceedToPayment = proceedToPayment;
+
+// 支付相关功能
+let selectedServiceData = {};
+
+// 选择服务
+function selectService(serviceType, price, serviceName) {
+    selectedServiceData = {
+        serviceType: serviceType,
+        price: price,
+        serviceName: serviceName
+    };
+    
+    // 更新弹窗内容
+    document.getElementById('selectedServiceName').textContent = serviceName;
+    document.getElementById('selectedServicePrice').textContent = price;
+    
+    // 显示支付弹窗
+    showPaymentModal();
+}
+
+// 显示支付弹窗
+function showPaymentModal() {
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'block';
+    
+    // 添加淡入动画
+    setTimeout(() => {
+        modal.querySelector('.payment-modal-content').style.opacity = '1';
+        modal.querySelector('.payment-modal-content').style.transform = 'translateY(0)';
+    }, 10);
+}
+
+// 关闭支付弹窗
+function closePaymentModal() {
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'none';
+}
+
+// 确认支付
+function proceedToPayment() {
+    if (!selectedServiceData.serviceType) {
+        alert('请先选择服务！');
+        return;
+    }
+    
+    // 生成订单号
+    const orderId = 'ORD' + Date.now() + Math.random().toString(36).substr(2, 4).toUpperCase();
+    
+    // 创建订单数据
+    const orderData = {
+        orderId: orderId,
+        serviceType: selectedServiceData.serviceType,
+        serviceName: selectedServiceData.serviceName,
+        price: selectedServiceData.price,
+        createTime: new Date().toISOString(),
+        status: 'pending'
+    };
+    
+    // 保存订单到本地存储
+    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    orders.push(orderData);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    console.log('创建订单:', orderData);
+    
+    // 调用虎皮椒支付
+    initiateXunhuPayment(orderData);
+}
+
+// 调用虎皮椒支付
+function initiateXunhuPayment(orderData) {
+    // 显示加载状态
+    const confirmBtn = document.querySelector('.confirm-payment-btn');
+    const originalText = confirmBtn.textContent;
+    confirmBtn.textContent = '处理中...';
+    confirmBtn.disabled = true;
+    
+    // 调用后端API创建支付订单
+    fetch('/api/payment/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            serviceType: orderData.serviceType,
+            orderId: orderData.orderId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.payment_url) {
+            // 跳转到虎皮椒支付页面
+            window.location.href = data.payment_url;
+        } else {
+            alert('支付创建失败: ' + (data.error || '未知错误'));
+            // 恢复按钮状态
+            confirmBtn.textContent = originalText;
+            confirmBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('支付请求失败:', error);
+        alert('支付请求失败，请重试');
+        // 恢复按钮状态
+        confirmBtn.textContent = originalText;
+        confirmBtn.disabled = false;
+    });
+}
+
+// 生成随机字符串
+function generateNonceStr() {
+    return Math.random().toString(36).substr(2, 15) + Date.now().toString(36);
+}
+
+// 支付弹窗设置
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentModal = document.getElementById('paymentModal');
+    
+    if (paymentModal) {
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(e) {
+            if (e.target === paymentModal) {
+                closePaymentModal();
+            }
+        });
+        
+        // ESC键关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && paymentModal.style.display === 'block') {
+                closePaymentModal();
+            }
+        });
+    }
+});

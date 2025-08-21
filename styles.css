@@ -779,6 +779,209 @@ body {
     border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--hover-color);
+/* 付款服务选择区域 */
+.payment-services {
+    background: var(--secondary-color);
+    padding: 80px 0;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.payment-option {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.payment-option:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--success-color);
+}
+
+.payment-icon {
+    margin-bottom: 1.5rem;
+}
+
+.payment-icon i {
+    font-size: 3rem;
+    color: var(--success-color);
+}
+
+.payment-option h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.payment-option p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.payment-price {
+    font-size: 2.5rem;
+    color: var(--success-color);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.payment-btn {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.payment-btn:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+/* 支付弹窗 */
+.payment-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.payment-modal-content {
+    background: var(--card-background);
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-hover);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.payment-close {
+    color: var(--text-secondary);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 20px 25px 0 0;
+    cursor: pointer;
+}
+
+.payment-close:hover {
+    color: var(--text-primary);
+}
+
+.payment-modal-body {
+    padding: 20px 30px 30px;
+}
+
+.payment-modal-body h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.payment-details {
+    background: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.payment-details p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.payment-details p:last-child {
+    margin-bottom: 0;
+}
+
+.payment-details span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.confirm-payment-btn {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.confirm-payment-btn:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+/* 付款服务响应式设计 */
+@media (max-width: 768px) {
+    .payment-options {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .payment-option {
+        padding: 1.5rem;
+    }
+    
+    .payment-price {
+        font-size: 2rem;
+    }
+    
+    .payment-modal-content {
+        width: 95%;
+        margin: 20% auto;
+    }
+    
+    .payment-modal-body {
+        padding: 15px 20px 20px;
+    }
 }

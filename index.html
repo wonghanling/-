@@ -18,6 +18,7 @@
             </div>
             <div class="nav-menu">
                 <a href="#services">服务介绍</a>
+                <a href="#payment-services">选择服务</a>
                 <a href="#advantages">服务优势</a>
                 <a href="#contact">联系我们</a>
             </div>
@@ -75,6 +76,60 @@
                         <li>资料准备指导</li>
                         <li>全程代办服务</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 付款服务选择 -->
+    <section id="payment-services" class="payment-services">
+        <div class="container">
+            <h2 class="section-title">选择服务</h2>
+            <p class="section-subtitle">选择您需要的服务并立即支付</p>
+            <div class="payment-options">
+                <div class="payment-option" data-service="annual-accounting" data-price="999">
+                    <div class="payment-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>年代账</h3>
+                    <p>专业会计团队为您提供全年代理记账服务</p>
+                    <div class="payment-price">¥999</div>
+                    <button class="payment-btn" onclick="selectService('annual-accounting', 999, '年代账')">选择此服务</button>
+                </div>
+
+                <div class="payment-option" data-service="annual-report" data-price="178">
+                    <div class="payment-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>年申报</h3>
+                    <p>代办企业年度申报，确保合规经营</p>
+                    <div class="payment-price">¥178</div>
+                    <button class="payment-btn" onclick="selectService('annual-report', 178, '年申报')">选择此服务</button>
+                </div>
+
+                <div class="payment-option" data-service="license-cancel" data-price="599">
+                    <div class="payment-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3>营业执照注销</h3>
+                    <p>专业代办营业执照注销手续</p>
+                    <div class="payment-price">¥599</div>
+                    <button class="payment-btn" onclick="selectService('license-cancel', 599, '营业执照注销')">选择此服务</button>
+                </div>
+            </div>
+
+            <!-- 支付弹窗 -->
+            <div class="payment-modal" id="paymentModal">
+                <div class="payment-modal-content">
+                    <span class="payment-close" onclick="closePaymentModal()">&times;</span>
+                    <div class="payment-modal-body">
+                        <h3>确认支付</h3>
+                        <div class="payment-details">
+                            <p><strong>服务项目：</strong><span id="selectedServiceName"></span></p>
+                            <p><strong>支付金额：</strong><span id="selectedServicePrice"></span>元</p>
+                        </div>
+                        <button class="confirm-payment-btn" onclick="proceedToPayment()">确认支付</button>
+                    </div>
                 </div>
             </div>
         </div>
