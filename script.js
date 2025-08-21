@@ -38,7 +38,26 @@ function handleScroll() {
 function setupForm() {
     const form = document.getElementById('contactForm');
     if (form) {
-        form.addEventListener('submit', handleFormSubmit);
+        // 表单现在直接提交到Getform，不需要JavaScript处理
+        form.addEventListener('submit', function(e) {
+            // 简单的客户端验证
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (!name || name.trim() === '') {
+                e.preventDefault();
+                alert('请输入您的姓名！');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                e.preventDefault();
+                alert('请输入正确的手机号码！');
+                return;
+            }
+            
+            // 让表单正常提交到Getform
+        });
     }
 }
 
