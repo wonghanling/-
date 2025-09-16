@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册公司服务 - 一站式代申报代账代交税</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-building"></i>
+                <span>注册公司</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#services">服务介绍</a>
+                <a href="#payment-services">选择服务</a>
+                <a href="#advantages">服务优势</a>
+                <a href="#contact">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">代注册公司和个体工商户<br>让财税更简单</h1>
+            <p class="hero-subtitle fade-in-delay">专业代办注册公司和个体工商户，最快3天拿营业执照，提供<span style="color: #ff4757; font-weight: 600;">注册+代账+报税一站式服务</span></p>
+            <button class="cta-button fade-in-delay-2" onclick="scrollToForm()">立即咨询</button>
+        </div>
+    </section>
+
+    <!-- 服务介绍 -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">我们的服务</h2>
+            <div class="services-grid">
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>代账 & 税务申报</h3>
+                    <p>专业会计团队为您处理日常账务，按时准确完成税务申报，让您专注业务发展。</p>
+                    <ul>
+                        <li>日常账务处理</li>
+                        <li>月度/季度税务申报</li>
+                        <li>年度汇算清缴</li>
+                    </ul>
+                </div>
+
+                <div class="service-card slide-up-delay">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>工商年报代理</h3>
+                    <p>专业代办工商年报，确保信息准确无误，避免因逾期申报产生的罚款和信用影响。</p>
+                    <ul>
+                        <li>年报信息整理</li>
+                        <li>网上申报提交</li>
+                        <li>异常处理</li>
+                    </ul>
+                </div>
+
+                <div class="service-card slide-up-delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>注册公司服务</h3>
+                    <p>从公司名称核准到营业执照办理，全程代办，最快3天拿证，让您轻松开启创业之路。</p>
+                    <ul>
+                        <li>公司注册咨询</li>
+                        <li>资料准备指导</li>
+                        <li>全程代办服务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 付款服务选择 -->
+    <section id="payment-services" class="payment-services">
+        <div class="container">
+            <h2 class="section-title">选择服务</h2>
+            <p class="section-subtitle">选择您需要的服务并立即支付</p>
+            <div class="payment-options">
+                <div class="payment-option" data-service="annual-accounting" data-price="999">
+                    <div class="payment-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>年代账</h3>
+                    <p>专业会计团队为您提供全年代理记账服务</p>
+                    <div class="payment-price">¥999</div>
+                    <button class="payment-btn" onclick="selectService('annual-accounting', 999, '年代账')">选择此服务</button>
+                </div>
+
+                <div class="payment-option" data-service="annual-report" data-price="178">
+                    <div class="payment-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>年申报</h3>
+                    <p>代办企业年度申报，确保合规经营</p>
+                    <div class="payment-price">¥178</div>
+                    <button class="payment-btn" onclick="selectService('annual-report', 178, '年申报')">选择此服务</button>
+                </div>
+
+                <div class="payment-option" data-service="license-cancel" data-price="599">
+                    <div class="payment-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3>营业执照注销</h3>
+                    <p>专业代办营业执照注销手续</p>
+                    <div class="payment-price">¥599</div>
+                    <button class="payment-btn" onclick="selectService('license-cancel', 599, '营业执照注销')">选择此服务</button>
+                </div>
+            </div>
+
+            <!-- 支付弹窗 -->
+            <div class="payment-modal" id="paymentModal">
+                <div class="payment-modal-content">
+                    <span class="payment-close" onclick="closePaymentModal()">&times;</span>
+                    <div class="payment-modal-body">
+                        <h3>确认支付</h3>
+                        <div class="payment-details">
+                            <p><strong>服务项目：</strong><span id="selectedServiceName"></span></p>
+                            <p><strong>支付金额：</strong><span id="selectedServicePrice"></span>元</p>
+                        </div>
+                        <button class="confirm-payment-btn" onclick="proceedToPayment()">确认支付</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务优势 -->
+    <section id="advantages" class="advantages">
+        <div class="container">
+            <h2 class="section-title">为什么选择我们</h2>
+            <div class="advantages-grid">
+                <div class="advantage-item fade-in">
+                    <div class="advantage-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>价格透明</h3>
+                    <p>明码标价，无隐藏费用，让您清楚知道每一分钱花在哪里</p>
+                </div>
+
+                <div class="advantage-item fade-in-delay">
+                    <div class="advantage-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>快速办理</h3>
+                    <p>专业团队高效作业，资料齐全后快速完成各项业务办理</p>
+                </div>
+
+                <div class="advantage-item fade-in-delay-2">
+                    <div class="advantage-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>资深会计团队</h3>
+                    <p>10年以上行业经验，熟悉各类财税政策，为您提供专业服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">立即咨询</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>留下您的联系方式</h3>
+                    <p>我们会在收到信息后尽快与您联系，为您提供专业的财税咨询服务</p>
+                </div>
+                
+                <div class="fillout-form">
+                    <div style="width:100%;height:500px;" data-fillout-id="nryqjhj9f5us" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                    <script src="https://server.fillout.com/embed/v1/"></script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p><i class="fas fa-phone"></i> 联系电话：18069413066</p>
+                    <p><i class="fas fa-envelope"></i> 邮箱：1825221780@qq.com</p>
+                    <p><i class="fas fa-clock"></i> 工作时间：周一至周五 9:00-18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>微信咨询</h3>
+                    <div class="qr-code">
+                        <img src="mmqrcode1754355997664.png" alt="微信二维码" class="wechat-qr">
+                        <a href="https://work.weixin.qq.com/ca/cawcdeac58029da582" target="_blank" class="wechat-chat-btn">
+                            <i class="fas fa-comments"></i>
+                            立即会话
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 专业会计服务. 保留所有权利. | <a href="#" onclick="showLoginModal()" style="color: var(--success-color); text-decoration: none;">管理登录</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 成功提示弹窗 -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>提交成功！</h3>
+                <p>我们已收到您的信息，会尽快通过微信与您联系。</p>
+                <button class="modal-btn" onclick="closeModal()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-lock login-icon"></i>
+                <h3>管理登录</h3>
+                <p>请输入管理密码</p>
+                <div class="login-form">
+                    <input type="password" id="adminPassword" placeholder="请输入密码" class="login-input">
+                    <button class="modal-btn" onclick="login()">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
