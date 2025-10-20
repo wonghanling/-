@@ -1016,3 +1016,181 @@ body {
 .wechat-chat-btn i {
     margin-right: 8px;
 }
+
+/* 咨询表单样式 */
+.consultation-form {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.contact-form {
+    background: var(--card-background);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.required {
+    color: #ff4757;
+    margin-left: 3px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--secondary-color);
+    color: var(--text-primary);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-height: 54px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.form-group select option {
+    background: var(--secondary-color);
+    color: var(--text-primary);
+    padding: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 18px 20px;
+    background: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    min-height: 56px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+.submit-btn:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 咨询表单消息样式 */
+.consultation-message {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.consultation-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--success-color);
+}
+
+.consultation-message.error {
+    background: rgba(255, 71, 87, 0.1);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    color: #ff4757;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .consultation-form {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .contact-form {
+        padding: 2rem 1.5rem;
+        margin: 0 10px;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 14px 16px;
+        font-size: 16px; /* 防止 iOS Safari 缩放 */
+        min-height: 50px;
+    }
+
+    .submit-btn {
+        padding: 16px 20px;
+        font-size: 16px;
+        min-height: 52px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .consultation-form {
+        max-width: 650px;
+    }
+
+    .contact-form {
+        padding: 2.5rem 2rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .consultation-form {
+        max-width: 700px;
+    }
+
+    .contact-form {
+        padding: 3rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 18px 24px;
+        min-height: 58px;
+    }
+
+    .submit-btn {
+        padding: 20px 24px;
+        font-size: 18px;
+        min-height: 60px;
+    }
+}

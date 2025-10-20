@@ -1,3 +1,13 @@
+// Supabase 配置 - 使用与 PawNest 相同的数据库
+const SUPABASE_URL = 'https://xlpvymwpfkhnumsvzbkl.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscHZ5bXdwZmtobnVtc3Z6YmtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTYyNTgsImV4cCI6MjA3NjQzMjI1OH0.pSCrpwOCmX-YrJyI9TR80jHlZODYMGgDwUeN-7QpbW8';
+
+// 初始化 Supabase 客户端
+let supabase;
+if (typeof window !== 'undefined' && window.supabase) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 // 等待DOM加载完成
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化页面
@@ -5,7 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 设置表单提交事件
     setupForm();
-    
+
+    // 设置咨询表单提交事件
+    setupConsultationForm();
+
     // 设置滚动动画
     setupScrollAnimations();
     
@@ -59,6 +72,98 @@ function setupForm() {
             // 让表单正常提交到Getform
         });
     }
+}
+
+// 设置咨询表单提交
+function setupConsultationForm() {
+    const consultationForm = document.getElementById('consultationForm');
+    if (consultationForm) {
+        consultationForm.addEventListener('submit', handleConsultationSubmit);
+    }
+}
+
+// 处理咨询表单提交
+async function handleConsultationSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const userName = formData.get('userName').trim();
+    const userPhone = formData.get('userPhone').trim();
+    const serviceType = formData.get('serviceType');
+
+    // 表单验证
+    if (!userName || !userPhone || !serviceType) {
+        showConsultationMessage('请填写所有必填字段', true);
+        return;
+    }
+
+    // 验证手机号格式
+    if (!validatePhone(userPhone)) {
+        showConsultationMessage('请输入正确的手机号码', true);
+        return;
+    }
+
+    // 显示提交状态
+    const submitBtn = document.getElementById('consultationSubmitBtn');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '提交中...';
+
+    try {
+        // 检查 Supabase 是否可用
+        if (!supabase) {
+            throw new Error('数据库连接未初始化');
+        }
+
+        // 提交到 Supabase
+        const { data, error } = await supabase
+            .from('consultation_submissions')
+            .insert([
+                {
+                    name: userName,
+                    phone: userPhone,
+                    service_type: serviceType
+                }
+            ])
+            .select();
+
+        if (error) {
+            throw error;
+        }
+
+        showConsultationMessage('咨询信息提交成功！我们会尽快与您联系。', false);
+
+        // 重置表单
+        e.target.reset();
+
+        // 显示成功弹窗
+        setTimeout(() => {
+            showSuccessModal();
+        }, 1000);
+
+    } catch (error) {
+        console.error('提交错误:', error);
+        showConsultationMessage('提交失败，请重试: ' + error.message, true);
+    } finally {
+        // 恢复按钮状态
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+}
+
+// 显示咨询表单消息
+function showConsultationMessage(message, isError = false) {
+    const messageContainer = document.getElementById('consultationMessage');
+    messageContainer.innerHTML = `
+        <div class="consultation-message ${isError ? 'error' : 'success'}">
+            ${message}
+        </div>
+    `;
+
+    // 3秒后自动清除消息
+    setTimeout(() => {
+        messageContainer.innerHTML = '';
+    }, 3000);
 }
 
 // 处理表单提交
