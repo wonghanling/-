@@ -122,7 +122,8 @@ async function handleConsultationSubmit(e) {
                 {
                     name: userName,
                     phone: userPhone,
-                    service_type: serviceType
+                    service_type: serviceType,
+                    created_at: new Date().toISOString()
                 }
             ])
             .select();
