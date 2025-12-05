@@ -69,6 +69,13 @@ body {
     color: var(--success-color);
 }
 
+.nav-logo .logo-image {
+    height: 50px;
+    width: auto;
+    margin-right: 1rem;
+    object-fit: contain;
+}
+
 .nav-menu {
     display: flex;
     gap: 2rem;
