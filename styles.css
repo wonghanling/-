@@ -17,8 +17,10 @@
     --success-color: #10b981;
     --background: #0a0a0a;
     --card-background: #1a1a1a;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.7);
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    --shadow-hover: 0 25px 60px rgba(0, 0, 0, 0.8);
+    --shadow-luxury: 0 30px 80px rgba(16, 185, 129, 0.15);
+    --glow: 0 0 30px rgba(16, 185, 129, 0.3);
 }
 
 body {
@@ -30,9 +32,9 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
 /* 导航栏 */
@@ -40,11 +42,13 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     z-index: 1000;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {
@@ -59,9 +63,10 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: var(--text-primary);
+    letter-spacing: 0.5px;
 }
 
 .nav-logo i {
@@ -115,9 +120,12 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(135deg, var(--background) 0%, var(--secondary-color) 100%);
+    background: radial-gradient(ellipse at top, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #0d0d0d 100%);
     position: relative;
     overflow: hidden;
+    padding: 140px 40px 100px;
 }
 
 .hero::before {
@@ -127,78 +135,141 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%2310b981" stop-opacity="0.1"/><stop offset="100%" stop-color="%2310b981" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="300" fill="url(%23a)"/><circle cx="800" cy="300" r="250" fill="url(%23a)"/><circle cx="400" cy="700" r="200" fill="url(%23a)"/></svg>') no-repeat center center;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%2310b981" stop-opacity="0.15"/><stop offset="100%" stop-color="%2310b981" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="300" fill="url(%23a)"/><circle cx="800" cy="300" r="250" fill="url(%23a)"/><circle cx="400" cy="700" r="200" fill="url(%23a)"/></svg>') no-repeat center center;
     background-size: cover;
-    opacity: 0.3;
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
 }
 
 .hero-content {
     z-index: 1;
-    max-width: 600px;
+    max-width: 850px;
+    padding: 0 30px;
+    position: relative;
+}
+
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--success-color), transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-size: 3.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 2.5rem;
+    line-height: 1.9;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 .cta-button {
-    background: var(--success-color);
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
     color: white;
     border: none;
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4), var(--glow);
 }
 
 /* 服务介绍 */
 .services {
-    padding: 100px 0;
+    padding: 140px 0;
     background: var(--card-background);
+    position: relative;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
 }
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 3rem;
+    margin-top: 5rem;
 }
 
 .service-card {
-    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(64, 64, 64, 0.6));
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .service-card::before {
@@ -208,46 +279,83 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.15), transparent);
+    transition: left 0.6s ease;
 }
 
 .service-card:hover::before {
     left: 100%;
 }
 
+.service-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.service-card:hover::after {
+    opacity: 1;
+}
+
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-luxury), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 .service-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--success-color);
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, var(--success-color), #059669);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.service-icon::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.5), transparent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover .service-icon::before {
+    opacity: 1;
 }
 
 .service-icon i {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: white;
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
     color: #ffffff;
+    letter-spacing: -0.01em;
 }
 
 .service-card p {
-    color: #ffffff;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    font-size: 1.05rem;
 }
 
 .service-card ul {
@@ -271,55 +379,105 @@ body {
 
 /* 服务优势 */
 .advantages {
-    padding: 100px 0;
+    padding: 140px 0;
     background: var(--background);
+    position: relative;
+}
+
+.advantages::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
 }
 
 .advantages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 4rem;
+    margin-top: 5rem;
 }
 
 .advantage-item {
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.advantage-item:hover {
+    transform: translateY(-8px);
 }
 
 .advantage-icon {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     background: linear-gradient(135deg, var(--success-color), #059669);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: var(--shadow);
+    margin: 0 auto 2rem;
+    box-shadow: 0 15px 50px rgba(16, 185, 129, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.advantage-icon::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), transparent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.advantage-item:hover .advantage-icon {
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.5), var(--glow);
+}
+
+.advantage-item:hover .advantage-icon::before {
+    opacity: 1;
 }
 
 .advantage-icon i {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: white;
 }
 
 .advantage-item h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
     color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
 .advantage-item p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.8;
+    font-size: 1.05rem;
 }
 
 /* 联系表单 */
 .contact {
-    padding: 100px 0;
+    padding: 140px 0;
     background: var(--card-background);
+    position: relative;
+}
+
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
 }
 
 .contact-content {
@@ -708,55 +866,234 @@ body {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
     .nav-menu {
         display: none;
     }
 
+    .navbar {
+        padding: 0.8rem 0;
+    }
+
+    /* 英雄区域 - 大幅缩短 */
     .hero {
-        min-height: 60vh;
-        padding: 6rem 0 4rem;
+        min-height: 50vh;
+        padding: 80px 20px 40px;
     }
 
     .hero-title {
-        font-size: 2.5rem;
-        line-height: 1.5;
-        margin-bottom: 2rem;
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 2.5rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
     }
-    
-    .services-grid,
+
+    .cta-button {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+    }
+
+    /* 所有区块 - 大幅缩短间距 */
+    .services {
+        padding: 40px 0;
+    }
+
+    .advantages {
+        padding: 40px 0;
+    }
+
+    .payment-services {
+        padding: 40px 0;
+    }
+
+    .contact {
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+    }
+
+    /* 服务卡片 */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+
+    .service-icon i {
+        font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-card ul li {
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
+        padding-left: 1.2rem;
+    }
+
+    /* 优势区块 */
     .advantages-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        margin-top: 1.5rem;
     }
-    
+
+    .advantage-item {
+        padding: 1.2rem;
+    }
+
+    .advantage-icon {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 0.8rem;
+    }
+
+    .advantage-icon i {
+        font-size: 1.8rem;
+    }
+
+    .advantage-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .advantage-item p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* 付款选项 */
+    .payment-options {
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .payment-option {
+        padding: 1.5rem;
+    }
+
+    .payment-icon {
+        margin-bottom: 1rem;
+    }
+
+    .payment-icon i {
+        font-size: 2.2rem;
+    }
+
+    .payment-option h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .payment-option p {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .payment-price {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .payment-btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+
+    /* 联系表单 */
     .contact-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
     }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: center;
+
+    .contact-info h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.6rem;
     }
-    
-    .checkbox-group {
-        grid-template-columns: 1fr;
+
+    .contact-info p {
+        font-size: 0.9rem;
     }
-    
-    .service-card,
+
     .contact-form {
         padding: 1.5rem;
     }
-    
-    .section-title {
-        font-size: 2rem;
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    .submit-btn {
+        padding: 14px 18px;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+
+    /* 页脚 */
+    .footer {
+        padding: 30px 0 15px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .footer-section p {
+        font-size: 0.85rem;
+    }
+
+    .checkbox-group {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -811,7 +1148,18 @@ body {
 /* 付款服务选择区域 */
 .payment-services {
     background: var(--secondary-color);
-    padding: 80px 0;
+    padding: 140px 0;
+    position: relative;
+}
+
+.payment-services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
 }
 
 .section-subtitle {
@@ -829,66 +1177,118 @@ body {
 }
 
 .payment-option {
-    background: var(--card-background);
-    border-radius: 15px;
-    padding: 2rem;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(45, 45, 45, 0.7));
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem 2rem;
     text-align: center;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-option::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.payment-option:hover::before {
+    opacity: 1;
 }
 
 .payment-option:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--success-color);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--shadow-luxury), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
 }
 
 .payment-icon {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .payment-icon i {
-    font-size: 3rem;
+    font-size: 2.8rem;
     color: var(--success-color);
+    filter: drop-shadow(0 4px 20px rgba(16, 185, 129, 0.4));
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover .payment-icon i {
+    transform: scale(1.08);
+    filter: drop-shadow(0 8px 30px rgba(16, 185, 129, 0.6));
 }
 
 .payment-option h3 {
     color: var(--text-primary);
     font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
 .payment-option p {
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .payment-price {
     font-size: 2.5rem;
     color: var(--success-color);
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
 .payment-btn {
-    background: var(--success-color);
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 12px 28px;
     border-radius: 50px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.payment-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.payment-btn:hover::before {
+    left: 100%;
 }
 
 .payment-btn:hover {
-    background: #059669;
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.5);
 }
 
 /* 支付弹窗 */
