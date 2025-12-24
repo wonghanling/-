@@ -1,11 +1,12 @@
+(function() {
 // Supabase 配置 - 使用与 PawNest 相同的数据库
 const SUPABASE_URL = 'https://xlpvymwpfkhnumsvzbkl.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscHZ5bXdwZmtobnVtc3Z6YmtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTYyNTgsImV4cCI6MjA3NjQzMjI1OH0.pSCrpwOCmX-YrJyI9TR80jHlZODYMGgDwUeN-7QpbW8';
 
 // 初始化 Supabase 客户端
-let supabase;
+let supabaseClient = null;
 if (typeof window !== 'undefined' && window.supabase) {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 // 等待DOM加载完成
@@ -111,7 +112,7 @@ async function handleConsultationSubmit(e) {
 
     try {
         // 检查 Supabase 是否可用
-        if (!supabase) {
+        if (!supabaseClient) {
             throw new Error('数据库连接未初始化');
         }
 
@@ -563,3 +564,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+})();
