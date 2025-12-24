@@ -117,7 +117,7 @@ async function handleConsultationSubmit(e) {
         }
 
         // 提交到 Supabase
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('consultation_submissions')
             .insert([
                 {
