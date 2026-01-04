@@ -5,15 +5,20 @@ const SUPABASE_ANON_KEY = 'sb_publishable_hI-vAHNFQpWeyUR0O3-_0Q_JeqQ7qWH';
 
 // 初始化 Supabase 客户端
 let supabaseClient = null;
-if (typeof window !== 'undefined' && window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
 
 // 等待DOM加载完成
 document.addEventListener('DOMContentLoaded', function() {
+    // 初始化 Supabase 客户端（确保库已加载）
+    if (typeof window !== 'undefined' && window.supabase) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('Supabase客户端已初始化');
+    } else {
+        console.error('Supabase库未加载');
+    }
+
     // 初始化页面
     initPage();
-    
+
     // 设置表单提交事件
     setupForm();
 
@@ -22,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 设置滚动动画
     setupScrollAnimations();
-    
+
     // 设置导航平滑滚动
     setupSmoothScroll();
 });
