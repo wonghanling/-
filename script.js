@@ -499,14 +499,14 @@ function proceedToPayment() {
     initiateXunhuPayment(orderData);
 }
 
-// 调用虎皮椒支付
+// 调用支付宝支付
 function initiateXunhuPayment(orderData) {
     // 显示加载状态
     const confirmBtn = document.querySelector('.confirm-payment-btn');
     const originalText = confirmBtn.textContent;
     confirmBtn.textContent = '处理中...';
     confirmBtn.disabled = true;
-    
+
     // 调用后端API创建支付订单
     fetch('/api/payment/create', {
         method: 'POST',
@@ -515,14 +515,26 @@ function initiateXunhuPayment(orderData) {
         },
         body: JSON.stringify({
             serviceType: orderData.serviceType,
-            orderId: orderData.orderId
+            amount: orderData.price,
+            userName: '用户',
+            userPhone: '未提供'
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success && data.payment_url) {
-            // 跳转到虎皮椒支付页面
-            window.location.href = data.payment_url;
+            // 创建临时div来渲染支付表单（samdaigou的做法）
+            const div = document.createElement('div');
+            div.innerHTML = data.payment_url;
+            document.body.appendChild(div);
+
+            // 手动执行表单中的自动提交script
+            const script = div.querySelector('script');
+            if (script) {
+                eval(script.innerHTML);
+            }
+
+            confirmBtn.textContent = '正在跳转支付宝...';
         } else {
             alert('支付创建失败: ' + (data.error || '未知错误'));
             // 恢复按钮状态
